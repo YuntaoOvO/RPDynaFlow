@@ -11,29 +11,28 @@ RTX 4090-class GPU gives ~500–800 ns/day aggregate with 3 concurrent runs.
 | frames | every **100 ps** → 400 frames/trajectory, ~6.4k total (~3 GB) |
 | split | **3 train / 13 test (19%/81%)** — complex-level, generalization test |
 | force field | CHARMM36-jul2022 + CHARMM TIP3P, 0.15 M NaCl, 300 K |
-| model | conditional flow matching on beads (protein CA + RNA C4′), conditioned on static structure |
+| model | conditional flow matching on **all solute heavy atoms** (protein + RNA + interface ligands), conditioned on the static structure |
 
 ## Directory layout
 
 ```
-DynaFlow/
-  RNA-protein complexes/     # input PDBs (already have)
+RPDynaFlow/                  # repo root
+  RNA-protein complexes/     # input PDBs (create, or point PDB_DIR at yours)
   pipeline/                  # these scripts
   md/<PDBID>/                # per-system GROMACS workdirs (created)
   data/{md,nmr}/<PDBID>.npz  # featurized trajectories / NMR ensembles
-  results/                   # model checkpoint + benchmark figs/tables
+  results/                   # model checkpoints + benchmark figs/tables
 ```
 
 ## Day 1 — setup, cleaning, prep, launch production (≈6 h work + overnight GPU)
 
 ```bash
-cd DynaFlow/pipeline
+cd pipeline
 pip install -r requirements.txt          # numpy pandas matplotlib MDAnalysis torch
 source /path/to/gromacs/bin/GMXRC        # GROMACS 2025.2, CUDA build
 
-# CHARMM36 is NOT bundled with GROMACS — download once (~40 MB), into DynaFlow/:
-cd .. && wget "http://mackerell.umaryland.edu/download.php?filename=CHARMM_ff_params_files/charmm36-jul2022.ff.tgz" \
-     -O charmm36-jul2022.ff.tgz && tar xzf charmm36-jul2022.ff.tgz && cd pipeline
+# CHARMM36 is NOT bundled with GROMACS — fetch once (~40 MB) with the repo script:
+cd .. && bash download_ff.sh && cd pipeline
 # fallback if download impossible: export FF=amber99sb-ildn (bundled, weaker RNA)
 
 bash 00_check_env.sh                     # all [OK] before continuing
@@ -92,7 +91,7 @@ python3 07_benchmark.py --n-gen 200
   `results/qc_md.csv` (rmsd_max_A huge). Drop that system from the manifest
   (`selected=0`) and re-run 05/07.
 
-## Known simplifications (fine for the assignment, say so in the write-up)
+## Known simplifications
 
 1. One 40 ns replica per complex — captures local/breathing dynamics, not slow
    large-scale rearrangements. (NMR ensembles serve as orthogonal ground truth.)

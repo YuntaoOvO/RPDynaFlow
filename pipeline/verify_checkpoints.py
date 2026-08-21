@@ -22,7 +22,10 @@ except ImportError:
     sys.exit("[ERROR] PyTorch 未安装。运行: pip install torch")
 
 ROOT = os.environ.get("ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-CKPT_DIR = os.path.join(ROOT, "results", "checkpoints")
+CKPT_DIR = os.environ.get(
+    "CKPT_DIR",
+    os.path.join(ROOT, "checkpoints") if os.path.isdir(os.path.join(ROOT, "checkpoints"))
+    else os.path.join(ROOT, "results", "checkpoints"))
 
 
 def verify_checkpoint(ckpt_path):

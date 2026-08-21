@@ -5,8 +5,12 @@
 
 set -e
 
-CKPT_DIR="../results/checkpoints"
-OUT_BASE="../results/samples/ago2"
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+export DATA_DIR="${DATA_DIR:-$REPO_ROOT/examples}"
+export PDB_DIR="${PDB_DIR:-$REPO_ROOT/examples/pdb}"
+
+CKPT_DIR="${CKPT_DIR:-$REPO_ROOT/checkpoints}"
+OUT_BASE="${OUT_BASE:-$REPO_ROOT/results/samples/ago2}"
 SYSTEMS="4W5N,9K6T"
 N_GEN=200
 STEPS=30

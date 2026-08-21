@@ -20,7 +20,7 @@ echo "[bench] $N systems in order: ${ORDER[*]}"
 shopt -s nullglob
 for ckpt in "$CKPT_DIR"/flow_model_r*.pt; do
     [ -s "$ckpt" ] || continue
-    base=$(basename "$ckpt" .pt)       # flow_model_r3
+    base=$(basename "$ckpt" .pt)       # e.g. flow_model_r15
     K=${base##*_r}                      # 3
     # held-out = ORDER[K..N-1] that have an npz
     HELD=""
@@ -38,4 +38,4 @@ for ckpt in "$CKPT_DIR"/flow_model_r*.pt; do
         || echo "[bench] FAIL $base"
 done
 echo "[bench] DONE — per-checkpoint CSVs in $RESULTS_DIR/bench_*.csv"
-echo "[bench] headline (K=3): bench_flow_model_r3.csv"
+echo "[bench] headline summary: bench_${base}.csv (last ckpt)"

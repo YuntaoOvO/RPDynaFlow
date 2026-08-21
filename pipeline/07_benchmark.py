@@ -12,7 +12,7 @@ available) via:
 Model A (AtomFlowNet) or B (AtomFlowNetFF) auto-detected from ckpt["config"].
 --guided ETA switches to energy-guided sampling (Model C).
 
-Run:  python3 07_benchmark.py --ckpt results/checkpoints/flow_model_r3.pt --n-gen 50
+Run:  python3 07_benchmark.py --ckpt ../checkpoints/flow_model_r15.pt --n-gen 50
       python3 07_benchmark.py --ckpt results/ff/flow_model_ff.pt --guided 0.1
 """
 import argparse, os

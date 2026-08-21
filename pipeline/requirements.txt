@@ -1,5 +1,9 @@
 numpy
 pandas
+scipy
+scikit-learn
 matplotlib
+tqdm
 MDAnalysis
+mdtraj
 torch

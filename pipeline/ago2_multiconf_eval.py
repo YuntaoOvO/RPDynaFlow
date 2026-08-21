@@ -129,7 +129,9 @@ def eval_pair(gen_npz, ref_pdb, residues, label):
     gen = z["gen"] if "gen" in z else z["gen_coords"]
     ref_ca = ca_vectors(extract_ca_map(ref_pdb), residues)
     pid = os.path.basename(gen_npz).replace(".npz", "")
-    src = str(z["source_pdb"]) if "source_pdb" in z else _find_pdb(pid)
+    src = str(z["source_pdb"]) if "source_pdb" in z else ""
+    if not src or not os.path.exists(src):
+        src = _find_pdb(pid) or ""
     _, _, _, res_rt, _, atoms = parse_static_pdb(src)
     gen_ca_idx = [i for i, a in enumerate(atoms) if a["name"] == "CA"
                   and RESTYPE.get(a["resn"], 24) < 20

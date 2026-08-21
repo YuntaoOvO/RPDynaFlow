@@ -16,11 +16,10 @@
 ### 1. 环境依赖
 
 ```bash
-# Python 3.8+
-pip install numpy scipy pandas matplotlib scikit-learn MDAnalysis
-
-# 或使用 conda 环境
-conda activate calvados  # 或 pebble_env
+# conda env from the repo root
+conda env create -f environment.yml
+conda activate rpdynaflow
+# or: pip install numpy scipy pandas matplotlib scikit-learn MDAnalysis torch
 ```
 
 ### 2. 检查点文件
@@ -28,16 +27,16 @@ conda activate calvados  # 或 pebble_env
 确保存在以下检查点（至少一个）：
 
 ```
-results/checkpoints/
-├── flow_model_r5.pt   # 5 轮训练
-├── flow_model_r10.pt  # 10 轮训练
-└── flow_model_r15.pt  # 15 轮训练（推荐）
+checkpoints/               # 仓库自带
+├── flow_model_r5.pt   # 训练于 5 个系统
+├── flow_model_r10.pt  # 训练于 10 个系统
+└── flow_model_r15.pt  # 训练于 15 个系统（推荐）
 ```
 
 验证检查点：
 
 ```bash
-cd DynaFlow/pipeline
+cd pipeline
 python3 verify_checkpoints.py
 ```
 
@@ -46,11 +45,9 @@ python3 verify_checkpoints.py
 确保 PDB 文件可访问：
 
 ```
-RNA-protein complexes/
-├── 4W5N/
-│   └── *.pdb  # apo（仅 guide）
-└── 9K6T/
-    └── *.pdb  # holo（guide+target 三元复合物）
+examples/pdb/           # 仓库自带 Ago2 示例
+├── 4W5N.pdb  # apo（仅 guide）
+└── 9K6T.pdb  # holo（guide+target 三元复合物）
 ```
 
 ---
@@ -60,7 +57,7 @@ RNA-protein complexes/
 ### 一键运行（推荐）
 
 ```bash
-cd DynaFlow/pipeline
+cd pipeline
 bash master_run.sh
 ```
 
@@ -79,7 +76,7 @@ bash master_run.sh
 验证推理管线和环境配置：
 
 ```bash
-cd DynaFlow/pipeline
+cd pipeline
 bash smoke_test.sh
 ```
 
@@ -244,7 +241,7 @@ python verify_checkpoints.py
 
 ### Q4: PDB 文件找不到
 
-**排查**：检查环境变量 `PDB_DIR`（默认 `../RNA-protein complexes`），或使用：
+**排查**：检查环境变量 `PDB_DIR`（示例 PDB 在仓库 `examples/pdb/`），或使用：
 
 ```bash
 export PDB_DIR=/path/to/pdb/directory
@@ -259,7 +256,7 @@ export PDB_DIR=/path/to/pdb/directory
 ## 文件结构
 
 ```
-DynaFlow/pipeline/
+pipeline/
 ├── smoke_test.sh                     # 冒烟测试
 ├── stage1_ago2_sampling.sh           # 阶段一A
 ├── stage1_ago2_eval.sh               # 阶段一B
@@ -286,7 +283,7 @@ results/
 
 本评估流程整合以下方法学：
 
-1. **BioEmu**: Jing et al., *Nature Methods*, 2023
+1. **BioEmu**: Jing et al., *Nature*, 2025 (diffusion-based protein ensembles; https://github.com/microsoft/bioemu)
 2. **ESMDynamic**: *Nature Communications*, 2025 (DOI: 10.1101/2025.08.20.671365)
 3. **mdCATH**: 动态接触数据集（5398 蛋白，~464 ns 轨迹）
 

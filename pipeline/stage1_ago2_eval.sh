@@ -5,8 +5,12 @@
 
 set -e
 
-SAMPLES_BASE="../results/samples/ago2"
-OUT_BASE="../results/ago2"
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+export DATA_DIR="${DATA_DIR:-$REPO_ROOT/examples}"
+export PDB_DIR="${PDB_DIR:-$REPO_ROOT/examples/pdb}"
+
+SAMPLES_BASE="${SAMPLES_BASE:-$REPO_ROOT/results/samples/ago2}"
+OUT_BASE="${OUT_BASE:-$REPO_ROOT/results/ago2}"
 
 echo "=========================================="
 echo "阶段一：Ago2 跨结构评估"

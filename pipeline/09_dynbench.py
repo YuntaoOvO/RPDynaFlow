@@ -20,8 +20,8 @@ Inputs:
 All coordinates are pre-aligned (gmx trjconv -pbc cluster + -fit rot+trans).
 No PBC correction or Kabsch alignment needed here.
 
-Run:  python3 09_dynbench.py --samples results/samples/flow_model_r3
-      python3 09_dynbench.py --samples results/samples/flow_model_r3 --n-null 200
+Run:  python3 09_dynbench.py --samples results/samples/flow_model_r15
+      python3 09_dynbench.py --samples results/samples/flow_model_r15 --n-null 200
 """
 import argparse, os, sys
 import numpy as np
