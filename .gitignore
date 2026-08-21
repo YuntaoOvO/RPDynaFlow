@@ -1,0 +1,20 @@
+# platform / editor
+.claude/
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# large regenerated data (fetch via scripts, not tracked)
+md/
+data/
+results/samples/
+results/ago2/
+charmm36-jul2022.ff/
+charmm36-jul2022.ff.tgz
+bioemu-benchmarks/
+
+# outputs
+*.log
+*.egg-info/
