@@ -164,3 +164,7 @@ Code: MIT (see [LICENSE](LICENSE)). CHARMM36 force field has its own license —
 ## Citation
 
 If you use RPDynaFlow, please cite this repository (`https://github.com/YuntaoOvO/RPDynaFlow`) and watch for the accompanying preprint.
+
+## Acknowledgements
+
+This work was developed during the 2026 PEBBLE BioFusion Workshop at Westlake University in Hangzhou, China, from July 24th to August 4th, 2026.
