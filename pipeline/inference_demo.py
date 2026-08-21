@@ -11,10 +11,16 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import torch
-from flow_model import (AtomFlowNet, load_systems, sample_ensemble, _to_dev,
-                        SCALE, DATA, RESULTS)
 
 ROOT = os.environ.get("ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Prefer the bundled examples in a fresh clone; fall back to data/ (full pipeline).
+# Must be set BEFORE importing flow_model, which binds DATA at import time.
+_EX = os.path.join(ROOT, "examples")
+if "DATA_DIR" not in os.environ:
+    os.environ["DATA_DIR"] = _EX if os.path.isdir(os.path.join(_EX, "static")) else os.path.join(ROOT, "data")
+
+from flow_model import (AtomFlowNet, load_systems, sample_ensemble, _to_dev,
+                        SCALE, DATA, RESULTS)
 MD_DIR = os.environ.get("MD_DIR", os.path.join(ROOT, "md"))
 
 

@@ -34,6 +34,11 @@ RESTYPE = import_module("05_postprocess").RESTYPE
 ROOT = os.environ.get("ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 RESULTS = os.environ.get("RESULTS_DIR", os.path.join(ROOT, "results"))
 PDB_DIR = os.environ.get("PDB_DIR", os.path.join(ROOT, "RNA-protein complexes"))
+# Fresh-clone fallback: bundled example PDBs when the source directory is absent.
+if "PDB_DIR" not in os.environ and not os.path.isdir(PDB_DIR):
+    _ex = os.path.join(ROOT, "examples", "pdb")
+    if os.path.isdir(_ex):
+        PDB_DIR = _ex
 
 # Ago2 domain boundaries (UniProt Q9UKV8, 1-indexed inclusive)
 AGO2_DOMAINS = {

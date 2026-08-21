@@ -33,9 +33,9 @@ RPDynaFlow/
 conda env create -f environment.yml
 conda activate rpdynaflow
 
-# 2) run the smoke test: sample 10 conformers of Ago2 (4W5N) on GPU
+# 2) run the sanity check: sample 10 conformers of Ago2 (4W5N) on GPU
 cd pipeline
-bash smoke_test.sh          # ~1 min on an 8 GB GPU
+bash sanity_check.sh          # ~1 min on an 8 GB GPU
 
 # 3) sample a full ensemble (200 conformers)
 export DATA_DIR=$PWD/../examples

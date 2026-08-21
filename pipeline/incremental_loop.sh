@@ -8,7 +8,7 @@
 #
 # Featurization is ALWAYS from the complete trajectory: a system's npz is rebuilt
 # if missing OR older than its prod.gro (`-ot`), which catches stale partial
-# featurizations left over from smoke-tests.
+# featurizations left over from sanity-checks.
 #
 # Usage:  EPOCHS_PER_ROUND=50 BENCH_NGEN=30 bash incremental_loop.sh
 set -uo pipefail   # NOT -e: one failure must not abort the loop

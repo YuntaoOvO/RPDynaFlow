@@ -26,6 +26,11 @@ from flow_model import (AtomFlowNet, sample_ensemble, load_systems, load_split,
 ROOT = os.environ.get("ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 MD_DIR = os.environ.get("MD_DIR", os.path.join(ROOT, "md"))
 PDB_DIR = os.environ.get("PDB_DIR", os.path.join(ROOT, "RNA-protein complexes"))
+# Fresh-clone fallback: bundled example PDBs when the source directory is absent.
+if "PDB_DIR" not in os.environ and not os.path.isdir(PDB_DIR):
+    _ex = os.path.join(ROOT, "examples", "pdb")
+    if os.path.isdir(_ex):
+        PDB_DIR = _ex
 
 
 def rmsf(c):

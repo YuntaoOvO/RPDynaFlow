@@ -35,6 +35,11 @@ MD_DIR = os.environ.get("MD_DIR", os.path.join(ROOT, "md"))
 DATA = os.environ.get("DATA_DIR", os.path.join(ROOT, "data"))
 RESULTS = os.environ.get("RESULTS_DIR", os.path.join(ROOT, "results"))
 PDB_DIR = os.environ.get("PDB_DIR", os.path.join(ROOT, "RNA-protein complexes"))
+# Fresh-clone fallback: bundled example PDBs when the source directory is absent.
+if "PDB_DIR" not in os.environ and not os.path.isdir(PDB_DIR):
+    _ex = os.path.join(ROOT, "examples", "pdb")
+    if os.path.isdir(_ex):
+        PDB_DIR = _ex
 
 
 def sh(cmd, cwd, inp=None):

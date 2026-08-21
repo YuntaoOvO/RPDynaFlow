@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""smoke_test.py — validate the atomic GNN end-to-end on one train npz.
+"""sanity_check.py — validate the atomic GNN end-to-end on one train npz.
 
 Loads one train system, runs one forward+backward and one sample_ensemble,
 and checks: finite loss, finite samples, AND that element classes are a real
 mix (not all "other"/5 — the _elem_class double-encoding bug).
 
-Run:  python3 smoke_test.py        (needs data/md/<ID>.npz for >=1 train system)
+Run:  python3 sanity_check.py        (needs data/md/<ID>.npz for >=1 train system)
 """
 import sys, os, numpy as np, torch
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

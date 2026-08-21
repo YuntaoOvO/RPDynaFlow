@@ -24,6 +24,11 @@ import torch.nn as nn
 
 ROOT = os.environ.get("ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA = os.environ.get("DATA_DIR", os.path.join(ROOT, "data"))
+# Fresh-clone fallback: prefer the bundled examples when the full data/ tree is absent.
+if "DATA_DIR" not in os.environ and not os.path.isdir(os.path.join(DATA, "static")):
+    _ex = os.path.join(ROOT, "examples")
+    if os.path.isdir(os.path.join(_ex, "static")):
+        DATA = _ex
 RESULTS = os.environ.get("RESULTS_DIR", os.path.join(ROOT, "results"))
 N_ELEM = 6            # C,N,O,P,S,other
 N_TYPES = 24          # 20 aa + 4 nt

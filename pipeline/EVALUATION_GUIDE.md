@@ -62,7 +62,7 @@ bash master_run.sh
 ```
 
 交互式选择运行的阶段：
-- 阶段零：冒烟测试（验证环境，可选）
+- 阶段零：合理性检查（验证环境，可选）
 - 阶段一：Ago2 采样与跨结构评估（必选）
 - 阶段二：BioEmu 对比（需事先准备 BioEmu 样本）
 - 阶段三：ESMDynamic 覆盖层（需事先运行 ESMDynamic）
@@ -71,13 +71,13 @@ bash master_run.sh
 
 ## 分步运行
 
-### 阶段零：冒烟测试
+### 阶段零：合理性检查
 
 验证推理管线和环境配置：
 
 ```bash
 cd pipeline
-bash smoke_test.sh
+bash sanity_check.sh
 ```
 
 **输出**：临时 10 样本 npz（自动清理），验证通过后显示"[SUCCESS]"。
@@ -257,7 +257,7 @@ export PDB_DIR=/path/to/pdb/directory
 
 ```
 pipeline/
-├── smoke_test.sh                     # 冒烟测试
+├── sanity_check.sh                     # 合理性检查
 ├── stage1_ago2_sampling.sh           # 阶段一A
 ├── stage1_ago2_eval.sh               # 阶段一B
 ├── ago2_multiconf_eval.py            # 跨结构评估核心

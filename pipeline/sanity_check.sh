@@ -1,5 +1,5 @@
 #!/bin/bash
-# smoke_test.sh — 冒烟测试：验证推理管线可用性与显存控制
+# sanity_check.sh — 合理性检查：验证推理管线可用性与显存控制
 # 用途：生成 10 个 4W5N 样本，检查语法、显存、输出完整性
 # 运行前需：conda 环境激活（numpy/torch/MDAnalysis）、检查点存在
 
@@ -10,11 +10,11 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 export DATA_DIR="${DATA_DIR:-$REPO_ROOT/examples}"
 
 CKPT="${CKPT:-$REPO_ROOT/checkpoints/flow_model_r15.pt}"
-OUT="/tmp/smoke_test_$(date +%s)"
+OUT="/tmp/sanity_check_$(date +%s)"
 SYSTEM="4W5N"
 N_GEN=10
 
-echo "[smoke_test] 验证推理管线"
+echo "[sanity_check] 验证推理管线"
 echo "  检查点: $CKPT"
 echo "  输出目录: $OUT"
 echo "  系统: $SYSTEM"
@@ -34,7 +34,7 @@ if ! python -c "import torch; import numpy; import MDAnalysis" 2>/dev/null; then
     exit 1
 fi
 
-# 冒烟测试
+# 合理性检查
 echo "[1/3] 运行推理（静态 PDB 特征化模式，10 样本）..."
 python gen_ensembles.py \
     --ckpt "$CKPT" \
@@ -87,6 +87,6 @@ rm -rf "$OUT"
 
 echo ""
 echo "=========================================="
-echo "[SUCCESS] 冒烟测试通过"
+echo "[SUCCESS] 合理性检查通过"
 echo "推理管线工作正常，可以开始阶段一采样"
 echo "=========================================="

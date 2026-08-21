@@ -12,13 +12,13 @@ echo "RPDynaFlow 评估流程 — 主控脚本"
 echo "=========================================="
 echo ""
 
-# 阶段零：冒烟测试（可选）
-read -p "运行阶段零冒烟测试？(y/n，默认 n): " RUN_SMOKE
+# 阶段零：合理性检查（可选）
+read -p "运行阶段零合理性检查？(y/n，默认 n): " RUN_SMOKE
 RUN_SMOKE=${RUN_SMOKE:-n}
 if [[ "$RUN_SMOKE" == "y" ]]; then
     echo ""
-    echo "========== 阶段零：冒烟测试 =========="
-    bash smoke_test.sh
+    echo "========== 阶段零：合理性检查 =========="
+    bash sanity_check.sh
     echo ""
 fi
 
