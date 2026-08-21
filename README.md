@@ -4,13 +4,10 @@
 
 Given one experimental structure (crystal, cryo-EM, or NMR model 1), the model samples alternative conformations of **all solute heavy atoms** (protein + RNA + mediating ligands/ions) in the same aligned frame — no MD, no MSA, no topology required at inference.
 
-```mermaid
-flowchart LR
-  pdb[Static PDB] --> feat[Heavy-atom npz]
-  md[Short MD] --> feat
-  feat --> graph[Fixed 8A neighbor graph]
-  graph --> cfm[AtomFlowNet CFM]
-  cfm --> ens[Generated ensemble]
+```text
+Static PDB ──featurize──┐
+                        ├──► heavy-atom npz ──► fixed 8 A neighbor graph ──► AtomFlowNet CFM ──► conformational ensemble
+Short 40 ns MD ─────────┘
 ```
 
 **Approach:** train on short (40 ns) MD trajectories started from the experimental structure — the core split uses just **3 small NMR training complexes**, and the shipped checkpoints scale that to 5 / 10 / 15 systems (`r5` / `r10` / `r15`) — then generalize to held-out systems, including zero-shot transfer to much larger complexes (~4.2k–6.8k heavy atoms vs ~1.1k–3.4k in training).
